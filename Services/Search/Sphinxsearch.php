@@ -2,8 +2,6 @@
 
 namespace Search\SphinxsearchBundle\Services\Search;
 
-use SphinxClient;
-
 class Sphinxsearch
 {
     /**
