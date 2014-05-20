@@ -194,7 +194,7 @@ class Sphinxsearch
      */
     public function setGroupDistinct($attribute2)
     {
-        $this->_sphinx->SetGroupDistinct($attribute2);
+        $this->sphinx->SetGroupDistinct($attribute2);
     }
 
     /**
