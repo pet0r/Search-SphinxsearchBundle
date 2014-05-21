@@ -2,12 +2,20 @@
 
 namespace Search\SphinxsearchBundle\Services\Search;
 
+use SphinxClient;
+
 class Sphinxsearch
 {
     /**
-     * @var string $host
+     * @var array $hosts
      */
-    protected $host;
+    protected $hosts;
+
+    /**
+     * @var array $loads
+     */
+    protected $loads;
+
 
     /**
      * @var string $port
@@ -37,16 +45,16 @@ class Sphinxsearch
     private $sphinx;
 
     /**
-     * Constructor.
-     *
-     * @param string $host    The server's host name/IP.
-     * @param string $port    The port that the server is listening on.
-     * @param string $socket  The UNIX socket that the server is listening on.
-     * @param array  $indexes The list of indexes that can be used.
+     * @param array  $hosts
+     * @param array  $loads
+     * @param string $port
+     * @param null   $socket
+     * @param array  $indexes
      */
-    public function __construct($host = 'localhost', $port = '9312', $socket = null, array $indexes = array())
+    public function __construct($hosts = array(), $loads = array(), $port = '9312', $socket = null, array $indexes = array())
     {
-        $this->host    = $host;
+        $this->hosts   = $hosts;
+        $this->loads   = $loads;
         $this->port    = $port;
         $this->socket  = $socket;
         $this->indexes = $indexes;
@@ -56,7 +64,7 @@ class Sphinxsearch
         if ($this->socket !== null) {
             $this->sphinx->setServer($this->socket);
         } else {
-            $this->sphinx->setServer($this->host, $this->port);
+            $this->sphinx->setServer($this->hosts, $this->loads, $this->port);
         }
     }
 
@@ -85,7 +93,7 @@ class Sphinxsearch
     /**
      * Set the ranking mode
      *
-     * @param int $ranker   SPH_RANK_* constant
+     * @param int    $ranker SPH_RANK_* constant
      * @param string $rankExpr
      */
     public function setRankingMode($ranker, $rankExpr = '')
@@ -160,7 +168,7 @@ class Sphinxsearch
      *  $arrayResult = FALSE (default): Result will be a hash indexed by document ids
      *  $arrayResult = TRUE:            Result will be an array where document ids are provided as '@id' attribute.
      *
-     * @param bool $arrayResult     should be TRUE or FALSE
+     * @param bool $arrayResult should be TRUE or FALSE
      */
     public function setArrayResult($arrayResult)
     {
