@@ -7,27 +7,6 @@ use SphinxClient;
 class Sphinxsearch
 {
     /**
-     * @var array $hosts
-     */
-    protected $hosts;
-
-    /**
-     * @var array $loads
-     */
-    protected $loads;
-
-
-    /**
-     * @var string $port
-     */
-    protected $port;
-
-    /**
-     * @var string $socket
-     */
-    protected $socket;
-
-    /**
      * @var array $indexes
      *
      * $this->indexes should look like:
@@ -51,20 +30,15 @@ class Sphinxsearch
      * @param null   $socket
      * @param array  $indexes
      */
-    public function __construct($hosts = array(), $loads = array(), $port = '9312', $socket = null, array $indexes = array())
+    public function __construct(array $hosts = array(), array $loads = array(), $port = '9312', $socket = null, array $indexes = array())
     {
-        $this->hosts   = $hosts;
-        $this->loads   = $loads;
-        $this->port    = $port;
-        $this->socket  = $socket;
         $this->indexes = $indexes;
+        $this->sphinx  = new \SphinxClient();
 
-        $this->sphinx = new \SphinxClient();
-
-        if ($this->socket !== null) {
-            $this->sphinx->setServer($this->socket);
+        if ($socket !== null) {
+            $this->sphinx->setServer($socket);
         } else {
-            $this->sphinx->setServer($this->hosts, $this->loads, $this->port);
+            $this->sphinx->setServer($hosts, $loads, $port);
         }
     }
 
