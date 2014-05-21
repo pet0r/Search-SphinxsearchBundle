@@ -20,6 +20,7 @@
             <argument>%search.sphinxsearch.searchd.hosts%</argument>
             <argument>%search.sphinxsearch.searchd.loads%</argument>
             <argument>%search.sphinxsearch.searchd.port%</argument>
+            <argument>%search.sphinxsearch.searchd.socket%</argument>
             <argument>%search.sphinxsearch.indexes%</argument>
         </service>
     </services>
