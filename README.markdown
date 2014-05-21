@@ -21,7 +21,12 @@ sphinxsearch:
         Categories: %sphinxsearch_index_categories%
         Items:      %sphinxsearch_index_items%
     searchd:
-        host:   %sphinxsearch_host%
+        hosts:
+            0:  %sphinxsearch_host1%
+            1:  %sphinxsearch_host2%
+        loads:
+            0:  30
+            1:  70
         port:   %sphinxsearch_port%
         socket: %sphinxsearch_socket%
     indexer:
