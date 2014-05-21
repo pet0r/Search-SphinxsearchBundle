@@ -22,11 +22,11 @@ sphinxsearch:
         Items:      %sphinxsearch_index_items%
     searchd:
         hosts:
-            0:  %sphinxsearch_host1%
-            1:  %sphinxsearch_host2%
+            0:  %sphinxsearch_host0%
+            1:  %sphinxsearch_host1%
         loads:
-            0:  30
-            1:  70
+            0:  %sphinxsearch_load0%
+            1:  %sphinxsearch_load1%
         port:   %sphinxsearch_port%
         socket: %sphinxsearch_socket%
     indexer:
@@ -34,6 +34,8 @@ sphinxsearch:
 ```
 
 At least one index must be defined, and you may define as many as you like.
+
+Multiple hosts can be defined, at least one must be present. For every host you supply, a load must also be defined. This will create a 'random' loadbalancing effect.
 
 In the above sample configuration, `Categories` is used as a label for the index named `%sphinxsearch_index_categories%` (as defined in your `sphinxsearch.conf`).  This allows you to avoid having to hard code raw index names inside of your code.
 
